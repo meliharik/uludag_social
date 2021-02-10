@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uludag_social/models/colorsAndTypes.dart';
-import 'package:uludag_social/pages/akis.dart';
+import 'package:uludag_social/pages/ilanlar.dart';
 import 'package:uludag_social/pages/ara.dart';
 import 'package:uludag_social/pages/duyurular.dart';
 import 'package:uludag_social/pages/profil.dart';
@@ -44,8 +44,10 @@ class _AnaSayfaState extends State<AnaSayfa> {
         },
         controller: sayfaKumandasi,
         children: [
-          Akis(),
-          Ara(),
+          Ilanlar(
+            profilSahibiId: aktifKullaniciId,
+          ),
+          //Ara(),
           Yukle(),
           Duyurlar(),
           Profil(
@@ -55,13 +57,15 @@ class _AnaSayfaState extends State<AnaSayfa> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
+        elevation: 0,
         backgroundColor: MelihColors().koyuGri,
         currentIndex: _aktifSayfaNo,
         selectedItemColor: MelihColors().main,
         unselectedItemColor: MelihColors().white,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Ana Sayfa'),
-          BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Ara'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.note_outlined), label: 'İlanlar'),
+          //BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Ara'),
           BottomNavigationBarItem(
               icon: Icon(Icons.file_upload), label: 'Yükle'),
           BottomNavigationBarItem(

@@ -35,6 +35,13 @@ dependencies:
   http:
   flutter_svg:
   cached_network_image:
+  google_fonts:
+  flutter_icons:
+  font_awesome_flutter:
+  image_picker:
+  firebase_storage:
+  awesome_dialog:
+  motion_tab_bar:
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +52,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+    - assets/images/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

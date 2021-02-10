@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:uludag_social/models/kullanici.dart';
 
 class FirestoreServisi {
@@ -23,5 +24,35 @@ class FirestoreServisi {
       return kullanici;
     }
     return null;
+  }
+
+  void kullaniciGuncelle(
+      {String kullaniciId,
+      String kullaniciAdi,
+      String fotoUrl = "",
+      String hakkinda}) {
+    _firestore.collection("kullanicilar").doc(kullaniciId).update({
+      "kullaniciAdi": kullaniciAdi,
+      "hakkinda": hakkinda,
+      "fotoUrl": fotoUrl
+    });
+  }
+
+  Future<int> takipciSayisi(kullaniciId) async {
+    QuerySnapshot snapshot = await _firestore
+        .collection("takipciler")
+        .doc(kullaniciId)
+        .collection("kullanicininTakipcileri")
+        .get();
+    return snapshot.docs.length;
+  }
+
+  Future<int> takipEdilenSayisi(kullaniciId) async {
+    QuerySnapshot snapshot = await _firestore
+        .collection("takipEdilenler")
+        .doc(kullaniciId)
+        .collection("kullanicininTakipleri")
+        .get();
+    return snapshot.docs.length;
   }
 }
