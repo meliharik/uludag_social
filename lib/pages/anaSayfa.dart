@@ -63,8 +63,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
         selectedItemColor: MelihColors().main,
         unselectedItemColor: MelihColors().white,
         items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.note_outlined), label: 'İlanlar'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'İlanlar'),
           //BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Ara'),
           BottomNavigationBarItem(
               icon: Icon(Icons.file_upload), label: 'Yükle'),

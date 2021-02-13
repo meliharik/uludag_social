@@ -28,12 +28,9 @@ class _IlanlarState extends State<Ilanlar> {
           backgroundColor: MelihColors().main,
           actions: [
             IconButton(
-                icon: Transform.rotate(
-                  angle: 5.8,
-                  child: Icon(
-                    Icons.send,
-                    color: Colors.white,
-                  ),
+                icon: Icon(
+                  FontAwesomeIcons.paperPlane,
+                  color: Colors.white,
                 ),
                 onPressed: () {
                   print('mesajlaşma sayfasına geçecek');
@@ -130,7 +127,7 @@ class _IlanlarState extends State<Ilanlar> {
                   height: _height * 0.015,
                 ),
                 Text(
-                  'Seni bekleyen bir sürü ilana hemen göz at.',
+                  'Seni bekleyen ilanlara hemen göz at.',
                   style: TextStyle(
                     color: Colors.white70,
                     fontWeight: FontWeight.normal,
@@ -156,9 +153,10 @@ class _IlanlarState extends State<Ilanlar> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Center(
-                                    child: Image.asset(
-                                  "assets/images/success.png",
-                                  width: _width * 0.15,
+                                    child: Icon(
+                                  FontAwesomeIcons.userFriends,
+                                  color: MelihColors().main,
+                                  size: _width * 0.13,
                                 )),
                                 SizedBox(
                                   height: _height * 0.02,
@@ -169,7 +167,7 @@ class _IlanlarState extends State<Ilanlar> {
                                       width: _width * 0.025,
                                     ),
                                     Text(
-                                      'Ev Arkadaşı İlanları',
+                                      'Ev Arkadaşı\nİlanları',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
@@ -180,20 +178,20 @@ class _IlanlarState extends State<Ilanlar> {
                                 SizedBox(
                                   height: _height * 0.006,
                                 ),
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: _width * 0.025,
-                                    ),
-                                    Text(
-                                      'İlan Sayısı 1',
-                                      style: TextStyle(
-                                          color: MelihColors().white,
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: _height / 45),
-                                    )
-                                  ],
-                                ),
+                                // Row(
+                                //   children: [
+                                //     SizedBox(
+                                //       width: _width * 0.025,
+                                //     ),
+                                //     Text(
+                                //       'İlan Sayısı 1',
+                                //       style: TextStyle(
+                                //           color: MelihColors().white,
+                                //           fontWeight: FontWeight.normal,
+                                //           fontSize: _height / 45),
+                                //     )
+                                //   ],
+                                // ),
                               ],
                             )),
                       ),
@@ -211,9 +209,10 @@ class _IlanlarState extends State<Ilanlar> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Center(
-                                    child: Image.asset(
-                                  "assets/images/success.png",
-                                  width: _width * 0.15,
+                                    child: Icon(
+                                  FontAwesomeIcons.shoppingCart,
+                                  color: MelihColors().amber,
+                                  size: _width * 0.13,
                                 )),
                                 SizedBox(
                                   height: _height * 0.02,
@@ -235,20 +234,20 @@ class _IlanlarState extends State<Ilanlar> {
                                 SizedBox(
                                   height: _height * 0.006,
                                 ),
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: _width * 0.025,
-                                    ),
-                                    Text(
-                                      'İlan Sayısı 2',
-                                      style: TextStyle(
-                                          color: MelihColors().white,
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: _height / 45),
-                                    )
-                                  ],
-                                ),
+                                // Row(
+                                //   children: [
+                                //     SizedBox(
+                                //       width: _width * 0.025,
+                                //     ),
+                                //     Text(
+                                //       'İlan Sayısı 2',
+                                //       style: TextStyle(
+                                //           color: MelihColors().white,
+                                //           fontWeight: FontWeight.normal,
+                                //           fontSize: _height / 45),
+                                //     )
+                                //   ],
+                                // ),
                               ],
                             )),
                       ),
@@ -274,9 +273,10 @@ class _IlanlarState extends State<Ilanlar> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Center(
-                                    child: Image.asset(
-                                  "assets/images/success.png",
-                                  width: _width * 0.15,
+                                    child: Icon(
+                                  FontAwesomeIcons.car,
+                                  color: MelihColors().red,
+                                  size: _width * 0.13,
                                 )),
                                 SizedBox(
                                   height: _height * 0.02,
@@ -298,20 +298,20 @@ class _IlanlarState extends State<Ilanlar> {
                                 SizedBox(
                                   height: _height * 0.006,
                                 ),
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: _width * 0.025,
-                                    ),
-                                    Text(
-                                      'İlan Sayısı 3',
-                                      style: TextStyle(
-                                          color: MelihColors().white,
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: _height / 45),
-                                    )
-                                  ],
-                                ),
+                                // Row(
+                                //   children: [
+                                //     SizedBox(
+                                //       width: _width * 0.025,
+                                //     ),
+                                //     Text(
+                                //       'İlan Sayısı 3',
+                                //       style: TextStyle(
+                                //           color: MelihColors().white,
+                                //           fontWeight: FontWeight.normal,
+                                //           fontSize: _height / 45),
+                                //     )
+                                //   ],
+                                // ),
                               ],
                             )),
                       ),
@@ -329,9 +329,10 @@ class _IlanlarState extends State<Ilanlar> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Center(
-                                    child: Image.asset(
-                                  "assets/images/success.png",
-                                  width: _width * 0.15,
+                                    child: Icon(
+                                  FontAwesomeIcons.book,
+                                  color: MelihColors().green,
+                                  size: _width * 0.13,
                                 )),
                                 SizedBox(
                                   height: _height * 0.02,
@@ -353,20 +354,20 @@ class _IlanlarState extends State<Ilanlar> {
                                 SizedBox(
                                   height: _height * 0.006,
                                 ),
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: _width * 0.025,
-                                    ),
-                                    Text(
-                                      'İlan Sayısı 4',
-                                      style: TextStyle(
-                                          color: MelihColors().white,
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: _height / 45),
-                                    )
-                                  ],
-                                ),
+                                // Row(
+                                //   children: [
+                                //     SizedBox(
+                                //       width: _width * 0.025,
+                                //     ),
+                                //     Text(
+                                //       'İlan Sayısı 4',
+                                //       style: TextStyle(
+                                //           color: MelihColors().white,
+                                //           fontWeight: FontWeight.normal,
+                                //           fontSize: _height / 45),
+                                //     )
+                                //   ],
+                                // ),
                               ],
                             )),
                       ),
