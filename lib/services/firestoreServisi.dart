@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:uludag_social/models/gonderiler.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:uludag_social/models/kullanici.dart';
@@ -193,5 +194,368 @@ class FirestoreServisi {
       "olusturulmaZamani": zaman,
       "fiyat": fiyat
     });
+  }
+
+  // Bu fonksiyonu yazdığımda ne iş yaptığını tanrı
+  // ve ben biliyorduk.
+  // Şimdi sadece tanrı biliyor.
+
+  Future<List<EvArkadasiGonderi>> evArkadasiGonderileriGetir(
+      kullaniciId) async {
+    QuerySnapshot snapshot = await _firestore
+        .collection("evArkadasiGonderi")
+        .doc(kullaniciId)
+        .collection("kullaniciGonderileri")
+        .orderBy("olusturulmaZamani", descending: true)
+        .get();
+    List<EvArkadasiGonderi> gonderiler = snapshot.docs
+        .map((doc) => EvArkadasiGonderi.dokumandanUret(doc))
+        .toList();
+    return gonderiler;
+  }
+
+  Future<List<NotGonderi>> notGonderileriGetir(kullaniciId) async {
+    QuerySnapshot snapshot = await _firestore
+        .collection("notGonderi")
+        .doc(kullaniciId)
+        .collection("kullaniciGonderileri")
+        .orderBy("olusturulmaZamani", descending: true)
+        .get();
+    List<NotGonderi> gonderiler =
+        snapshot.docs.map((doc) => NotGonderi.dokumandanUret(doc)).toList();
+    return gonderiler;
+  }
+
+  Future<List<YolculukGonderi>> yolculukGonderileriGetir(kullaniciId) async {
+    QuerySnapshot snapshot = await _firestore
+        .collection("yolculukGonderi")
+        .doc(kullaniciId)
+        .collection("kullaniciGonderileri")
+        .orderBy("olusturulmaZamani", descending: true)
+        .get();
+    List<YolculukGonderi> gonderiler = snapshot.docs
+        .map((doc) => YolculukGonderi.dokumandanUret(doc))
+        .toList();
+    return gonderiler;
+  }
+
+  Future<List<EsyaGonderi>> esyaGonderileriGetir(kullaniciId) async {
+    QuerySnapshot snapshot = await _firestore
+        .collection("esyaGonderi")
+        .doc(kullaniciId)
+        .collection("kullaniciGonderileri")
+        .orderBy("olusturulmaZamani", descending: true)
+        .get();
+    List<EsyaGonderi> gonderiler =
+        snapshot.docs.map((doc) => EsyaGonderi.dokumandanUret(doc)).toList();
+    return gonderiler;
+  }
+
+  Future<void> evArkadasiGonderiBegen(
+      EvArkadasiGonderi gonderi, String aktifKullaniciId) async {
+    DocumentSnapshot doc = await _firestore
+        .collection("evArkadasiGonderi")
+        .doc(gonderi.yayinlayanId)
+        .collection("kullaniciGonderileri")
+        .doc(gonderi.id)
+        .get();
+    if (doc.exists) {
+      EvArkadasiGonderi gonderi = EvArkadasiGonderi.dokumandanUret(doc);
+      int yeniBegeniSayisi = gonderi.begeniSayisi + 1;
+      _firestore
+          .collection("evArkadasiGonderi")
+          .doc(gonderi.yayinlayanId)
+          .collection("kullaniciGonderileri")
+          .doc(gonderi.id)
+          .update({"begeniSayisi": yeniBegeniSayisi});
+      _firestore
+          .collection("begeniler")
+          .doc("evArkadasi")
+          .collection("gonderiId")
+          .doc(gonderi.id)
+          .collection("gonderiyiBegenenler")
+          .doc(aktifKullaniciId)
+          .set({});
+    }
+  }
+
+  Future<void> evArkadasiGonderiBegeniKaldir(
+      EvArkadasiGonderi gonderi, String aktifKullaniciId) async {
+    DocumentSnapshot doc = await _firestore
+        .collection("evArkadasiGonderi")
+        .doc(gonderi.yayinlayanId)
+        .collection("kullaniciGonderileri")
+        .doc(gonderi.id)
+        .get();
+    if (doc.exists) {
+      EvArkadasiGonderi gonderi = EvArkadasiGonderi.dokumandanUret(doc);
+      int yeniBegeniSayisi = gonderi.begeniSayisi - 1;
+      _firestore
+          .collection("evArkadasiGonderi")
+          .doc(gonderi.yayinlayanId)
+          .collection("kullaniciGonderileri")
+          .doc(gonderi.id)
+          .update({"begeniSayisi": yeniBegeniSayisi});
+      DocumentSnapshot docBegeni = await _firestore
+          .collection("begeniler")
+          .doc("evArkadasi")
+          .collection("gonderiId")
+          .doc(gonderi.id)
+          .collection("gonderiyiBegenenler")
+          .doc(aktifKullaniciId)
+          .get();
+      if (docBegeni.exists) {
+        docBegeni.reference.delete();
+      }
+    }
+  }
+
+  Future<bool> evArkadasiBegeniVarMi(
+      EvArkadasiGonderi gonderi, String aktifKullaniciId) async {
+    DocumentSnapshot docBegeni = await _firestore
+        .collection("begeniler")
+        .doc("evArkadasi")
+        .collection("gonderiId")
+        .doc(gonderi.id)
+        .collection("gonderiyiBegenenler")
+        .doc(aktifKullaniciId)
+        .get();
+
+    if (docBegeni.exists) {
+      return true;
+    }
+
+    return false;
+  }
+
+  Future<void> yolculukGonderiBegen(
+      YolculukGonderi gonderi, String aktifKullaniciId) async {
+    DocumentSnapshot doc = await _firestore
+        .collection("yolculukGonderi")
+        .doc(gonderi.yayinlayanId)
+        .collection("kullaniciGonderileri")
+        .doc(gonderi.id)
+        .get();
+    if (doc.exists) {
+      YolculukGonderi gonderi = YolculukGonderi.dokumandanUret(doc);
+      int yeniBegeniSayisi = gonderi.begeniSayisi + 1;
+      _firestore
+          .collection("yolculukGonderi")
+          .doc(gonderi.yayinlayanId)
+          .collection("kullaniciGonderileri")
+          .doc(gonderi.id)
+          .update({"begeniSayisi": yeniBegeniSayisi});
+      _firestore
+          .collection("begeniler")
+          .doc("yolculuk")
+          .collection("gonderiId")
+          .doc(gonderi.id)
+          .collection("gonderiyiBegenenler")
+          .doc(aktifKullaniciId)
+          .set({});
+    }
+  }
+
+  Future<void> yolculukGonderiBegeniKaldir(
+      YolculukGonderi gonderi, String aktifKullaniciId) async {
+    DocumentSnapshot doc = await _firestore
+        .collection("yolculukGonderi")
+        .doc(gonderi.yayinlayanId)
+        .collection("kullaniciGonderileri")
+        .doc(gonderi.id)
+        .get();
+    if (doc.exists) {
+      YolculukGonderi gonderi = YolculukGonderi.dokumandanUret(doc);
+      int yeniBegeniSayisi = gonderi.begeniSayisi - 1;
+      _firestore
+          .collection("yolculukGonderi")
+          .doc(gonderi.yayinlayanId)
+          .collection("kullaniciGonderileri")
+          .doc(gonderi.id)
+          .update({"begeniSayisi": yeniBegeniSayisi});
+      DocumentSnapshot docBegeni = await _firestore
+          .collection("begeniler")
+          .doc("yolculuk")
+          .collection("gonderiId")
+          .doc(gonderi.id)
+          .collection("gonderiyiBegenenler")
+          .doc(aktifKullaniciId)
+          .get();
+      if (docBegeni.exists) {
+        docBegeni.reference.delete();
+      }
+    }
+  }
+
+  Future<bool> yolculukBegeniVarMi(
+      YolculukGonderi gonderi, String aktifKullaniciId) async {
+    DocumentSnapshot docBegeni = await _firestore
+        .collection("begeniler")
+        .doc("yolculuk")
+        .collection("gonderiId")
+        .doc(gonderi.id)
+        .collection("gonderiyiBegenenler")
+        .doc(aktifKullaniciId)
+        .get();
+
+    if (docBegeni.exists) {
+      return true;
+    }
+
+    return false;
+  }
+
+  Future<void> esyaGonderiBegen(
+      EsyaGonderi gonderi, String aktifKullaniciId) async {
+    DocumentSnapshot doc = await _firestore
+        .collection("esyaGonderi")
+        .doc(gonderi.yayinlayanId)
+        .collection("kullaniciGonderileri")
+        .doc(gonderi.id)
+        .get();
+    if (doc.exists) {
+      EsyaGonderi gonderi = EsyaGonderi.dokumandanUret(doc);
+      int yeniBegeniSayisi = gonderi.begeniSayisi + 1;
+      _firestore
+          .collection("esyaGonderi")
+          .doc(gonderi.yayinlayanId)
+          .collection("kullaniciGonderileri")
+          .doc(gonderi.id)
+          .update({"begeniSayisi": yeniBegeniSayisi});
+      _firestore
+          .collection("begeniler")
+          .doc("esya")
+          .collection("gonderiId")
+          .doc(gonderi.id)
+          .collection("gonderiyiBegenenler")
+          .doc(aktifKullaniciId)
+          .set({});
+    }
+  }
+
+  Future<void> esyaGonderiBegeniKaldir(
+      EsyaGonderi gonderi, String aktifKullaniciId) async {
+    DocumentSnapshot doc = await _firestore
+        .collection("esyaGonderi")
+        .doc(gonderi.yayinlayanId)
+        .collection("kullaniciGonderileri")
+        .doc(gonderi.id)
+        .get();
+    if (doc.exists) {
+      EsyaGonderi gonderi = EsyaGonderi.dokumandanUret(doc);
+      int yeniBegeniSayisi = gonderi.begeniSayisi - 1;
+      _firestore
+          .collection("esyaGonderi")
+          .doc(gonderi.yayinlayanId)
+          .collection("kullaniciGonderileri")
+          .doc(gonderi.id)
+          .update({"begeniSayisi": yeniBegeniSayisi});
+      DocumentSnapshot docBegeni = await _firestore
+          .collection("begeniler")
+          .doc("esya")
+          .collection("gonderiId")
+          .doc(gonderi.id)
+          .collection("gonderiyiBegenenler")
+          .doc(aktifKullaniciId)
+          .get();
+      if (docBegeni.exists) {
+        docBegeni.reference.delete();
+      }
+    }
+  }
+
+  Future<bool> esyaBegeniVarMi(
+      EsyaGonderi gonderi, String aktifKullaniciId) async {
+    DocumentSnapshot docBegeni = await _firestore
+        .collection("begeniler")
+        .doc("esya")
+        .collection("gonderiId")
+        .doc(gonderi.id)
+        .collection("gonderiyiBegenenler")
+        .doc(aktifKullaniciId)
+        .get();
+
+    if (docBegeni.exists) {
+      return true;
+    }
+
+    return false;
+  }
+
+  Future<void> notGonderiBegen(
+      NotGonderi gonderi, String aktifKullaniciId) async {
+    DocumentSnapshot doc = await _firestore
+        .collection("notGonderi")
+        .doc(gonderi.yayinlayanId)
+        .collection("kullaniciGonderileri")
+        .doc(gonderi.id)
+        .get();
+    if (doc.exists) {
+      NotGonderi gonderi = NotGonderi.dokumandanUret(doc);
+      int yeniBegeniSayisi = gonderi.begeniSayisi + 1;
+      _firestore
+          .collection("notGonderi")
+          .doc(gonderi.yayinlayanId)
+          .collection("kullaniciGonderileri")
+          .doc(gonderi.id)
+          .update({"begeniSayisi": yeniBegeniSayisi});
+      _firestore
+          .collection("begeniler")
+          .doc("not")
+          .collection("gonderiId")
+          .doc(gonderi.id)
+          .collection("gonderiyiBegenenler")
+          .doc(aktifKullaniciId)
+          .set({});
+    }
+  }
+
+  Future<void> notGonderiBegeniKaldir(
+      NotGonderi gonderi, String aktifKullaniciId) async {
+    DocumentSnapshot doc = await _firestore
+        .collection("notGonderi")
+        .doc(gonderi.yayinlayanId)
+        .collection("kullaniciGonderileri")
+        .doc(gonderi.id)
+        .get();
+    if (doc.exists) {
+      NotGonderi gonderi = NotGonderi.dokumandanUret(doc);
+      int yeniBegeniSayisi = gonderi.begeniSayisi - 1;
+      _firestore
+          .collection("notGonderi")
+          .doc(gonderi.yayinlayanId)
+          .collection("kullaniciGonderileri")
+          .doc(gonderi.id)
+          .update({"begeniSayisi": yeniBegeniSayisi});
+      DocumentSnapshot docBegeni = await _firestore
+          .collection("begeniler")
+          .doc("not")
+          .collection("gonderiId")
+          .doc(gonderi.id)
+          .collection("gonderiyiBegenenler")
+          .doc(aktifKullaniciId)
+          .get();
+      if (docBegeni.exists) {
+        docBegeni.reference.delete();
+      }
+    }
+  }
+
+  Future<bool> notBegeniVarMi(
+      NotGonderi gonderi, String aktifKullaniciId) async {
+    DocumentSnapshot docBegeni = await _firestore
+        .collection("begeniler")
+        .doc("not")
+        .collection("gonderiId")
+        .doc(gonderi.id)
+        .collection("gonderiyiBegenenler")
+        .doc(aktifKullaniciId)
+        .get();
+
+    if (docBegeni.exists) {
+      return true;
+    }
+
+    return false;
   }
 }

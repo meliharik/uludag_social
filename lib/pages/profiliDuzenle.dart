@@ -21,7 +21,8 @@ class ProfiliDuzenle extends StatefulWidget {
 
 class _ProfiliDuzenleState extends State<ProfiliDuzenle> {
   var _formKey = GlobalKey<FormState>();
-  String _kullaniciAdi, _hakkinda;
+
+  String _kullaniciAdi, _hakkinda, _email;
   File _secilmisFoto;
   bool _yukleniyor = false;
   @override
@@ -53,7 +54,11 @@ class _ProfiliDuzenleState extends State<ProfiliDuzenle> {
       ),
       body: ListView(
         children: [
-          _yukleniyor ? LinearProgressIndicator() : SizedBox(height: 0.0,),
+          _yukleniyor
+              ? LinearProgressIndicator()
+              : SizedBox(
+                  height: 0.0,
+                ),
           _profilFoto(),
           _changePPText(),
           _kullaniciBilgileri(),
@@ -184,6 +189,7 @@ class _ProfiliDuzenleState extends State<ProfiliDuzenle> {
             // ),
             _buildKullaniciAdi(),
             _buildHakkinda(),
+            _buildEmail()
           ],
         ),
       ),
@@ -230,6 +236,68 @@ class _ProfiliDuzenleState extends State<ProfiliDuzenle> {
             labelStyle: TextStyle(color: MelihColors().white),
             labelText: 'Hakkında'),
       ),
+    );
+  }
+
+  Widget _buildEmail() {
+    return Padding(
+      padding: EdgeInsets.all(8),
+      child: InkWell(
+        onTap: () {
+          showAlertDialog(context);
+        },
+        child: TextFormField(
+          enabled: false,
+          initialValue: widget.profil.email,
+          style: TextStyle(color: MelihColors().main),
+          validator: (girilenDeger) {
+            return girilenDeger.trim().length <= 3
+                ? "Kullanıcı Adı en az 4 karakter olmalı"
+                : null;
+          },
+          onSaved: (girilenDeger) {
+            _kullaniciAdi = girilenDeger;
+          },
+          decoration: InputDecoration(
+              labelStyle: TextStyle(color: MelihColors().white),
+              labelText: 'Kullanıcı Adı'),
+        ),
+      ),
+    );
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = FlatButton(
+      child: Text("Tamam", style: TextStyle(color: MelihColors().main)),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      elevation: 5,
+      backgroundColor: MelihColors().acikGri,
+      title: Text(
+        "Hoop",
+        style: TextStyle(
+            color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
+      ),
+      content: Text(
+          "Mail değiştirme işlemi şu anlık geçerli değil.\nEn kısa zamanda ekleyeceğiz.",
+          style: TextStyle(color: Colors.white, fontSize: 17)),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

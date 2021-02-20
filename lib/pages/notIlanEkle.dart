@@ -17,14 +17,16 @@ class _NotIlanEkleState extends State<NotIlanEkle> {
   TextEditingController sayfaSayisiTextKumandasi = TextEditingController();
   TextEditingController bolumTextKumandasi = TextEditingController();
   TextEditingController fiyatTextKumandasi = TextEditingController();
+
+  final _formAnahtari = GlobalKey<FormState>();
+  final _scaffoldAnahtari = GlobalKey<ScaffoldState>();
   bool yukleniyor = false;
   @override
   Widget build(BuildContext context) {
     double _height = MediaQuery.of(context).size.height;
     double _width = MediaQuery.of(context).size.height;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      resizeToAvoidBottomPadding: false,
+      key: _scaffoldAnahtari,
       backgroundColor: MelihColors().acikGri,
       appBar: AppBar(
         title: Text('Not İlanı Ekle'),
@@ -48,182 +50,185 @@ class _NotIlanEkleState extends State<NotIlanEkle> {
                   height: 0,
                 ),
           SingleChildScrollView(
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Theme(
-                    data: ThemeData(primaryColor: MelihColors().green),
-                    child: TextFormField(
-                      controller: baslikTextKumandasi,
-                      cursorColor: MelihColors().green,
-                      style: TextStyle(color: Colors.white),
-                      // validator: (girilenDeger) {
-                      //   if (girilenDeger.isEmpty) {
-                      //     return "Başlık boş bırakılamaz";
-                      //   } else if (girilenDeger.trim().length < 4) {
-                      //     return "Çok kısa bir başlık girdiniz";
-                      //   } else if (girilenDeger.trim().length > 50) {
-                      //     return "Başlık en fazla 50 karakter olabilir";
-                      //   }
-                      //   return null;
-                      // },
-                      decoration: InputDecoration(
-                          labelStyle: TextStyle(color: MelihColors().white),
-                          labelText: 'Başlık'),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Theme(
-                    data: ThemeData(primaryColor: MelihColors().green),
-                    child: TextFormField(
-                      controller: aciklamaTextKumandasi,
-                      cursorColor: MelihColors().green,
-                      style: TextStyle(color: Colors.white),
-                      // validator: (girilenDeger) {
-                      //   if (girilenDeger.isEmpty) {
-                      //     return "Açıklama boş bırakılamaz";
-                      //   } else if (girilenDeger.trim().length < 4) {
-                      //     return "Çok kısa bir Açıklama girdiniz";
-                      //   } else if (girilenDeger.trim().length > 150) {
-                      //     return "Açıklama en fazla 150 karakter olabilir";
-                      //   }
-                      //   return null;
-                      // },
-                      decoration: InputDecoration(
-                          labelStyle: TextStyle(color: MelihColors().white),
-                          labelText: 'Açıklama'),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Theme(
-                    data: ThemeData(primaryColor: MelihColors().green),
-                    child: TextFormField(
-                      controller: bolumTextKumandasi,
-                      cursorColor: MelihColors().green,
-                      style: TextStyle(color: Colors.white),
-                      // validator: (girilenDeger) {
-                      //   if (girilenDeger.isEmpty) {
-                      //     return "Konum alanı boş bırakılamaz";
-                      //   }
-                      //   return null;
-                      // },
-                      decoration: InputDecoration(
-                          labelStyle: TextStyle(color: MelihColors().white),
-                          labelText: 'Bölüm'),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Theme(
-                    data: ThemeData(primaryColor: MelihColors().green),
-                    child: TextFormField(
-                      controller: dersTextKumandasi,
-                      cursorColor: MelihColors().green,
-                      style: TextStyle(color: Colors.white),
-                      // validator: (girilenDeger) {
-                      //   if (girilenDeger.isEmpty) {
-                      //     return "Konum alanı boş bırakılamaz";
-                      //   }
-                      //   return null;
-                      // },
-                      decoration: InputDecoration(
-                          labelStyle: TextStyle(color: MelihColors().white),
-                          labelText: 'Ders'),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Theme(
-                    data: ThemeData(primaryColor: MelihColors().green),
-                    child: TextFormField(
-                      controller: dersinHocasiTextKumandasi,
-                      cursorColor: MelihColors().green,
-                      style: TextStyle(color: Colors.white),
-                      // validator: (girilenDeger) {
-                      //   if (girilenDeger.isEmpty) {
-                      //     return "Bu alan boş bırakılamaz";
-                      //   }
-                      //   return null;
-                      // },
-                      decoration: InputDecoration(
-                          labelStyle: TextStyle(color: MelihColors().white),
-                          labelText: 'Dersin Hocası'),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Theme(
-                    data: ThemeData(primaryColor: MelihColors().green),
-                    child: TextFormField(
-                      controller: sayfaSayisiTextKumandasi,
-                      cursorColor: MelihColors().green,
-                      style: TextStyle(color: Colors.white),
-                      // validator: (girilenDeger) {
-                      //   if (girilenDeger.isEmpty) {
-                      //     return "Kira alanı boş bırakılamaz";
-                      //   }
-                      //   return null;
-                      // },
-                      decoration: InputDecoration(
-                          labelStyle: TextStyle(color: MelihColors().white),
-                          labelText: 'Sayfa Sayısı'),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: Theme(
-                    data: ThemeData(primaryColor: MelihColors().green),
-                    child: TextFormField(
-                      controller: fiyatTextKumandasi,
-                      cursorColor: MelihColors().green,
-                      style: TextStyle(color: Colors.white),
-                      // validator: (girilenDeger) {
-                      //   if (girilenDeger.isEmpty) {
-                      //     return "Kira alanı boş bırakılamaz";
-                      //   }
-                      //   return null;
-                      // },
-                      decoration: InputDecoration(
-                          labelStyle: TextStyle(color: MelihColors().white),
-                          labelText: 'Fiyat'),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Container(
-                    height: _height * 0.07,
-                    width: _width * 0.35,
-                    child: RaisedButton(
-                      elevation: 5.0,
-                      color: MelihColors().green,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
+            child: Form(
+              key: _formAnahtari,
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Theme(
+                      data: ThemeData(primaryColor: MelihColors().green),
+                      child: TextFormField(
+                        controller: baslikTextKumandasi,
+                        cursorColor: MelihColors().green,
+                        style: TextStyle(color: Colors.white),
+                        validator: (girilenDeger) {
+                          if (girilenDeger.isEmpty) {
+                            return "Başlık boş bırakılamaz";
+                          } else if (girilenDeger.trim().length < 4) {
+                            return "Çok kısa bir başlık girdiniz";
+                          } else if (girilenDeger.trim().length > 50) {
+                            return "Başlık en fazla 50 karakter olabilir";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            labelStyle: TextStyle(color: MelihColors().white),
+                            labelText: 'Başlık'),
                       ),
-                      onPressed: notGonderiOlustur,
-                      child: Text(
-                        "İlanı Oluştur",
-                        style: TextStyle(
-                          color: MelihColors().koyuGri,
-                          letterSpacing: 1.5,
-                          fontSize: MediaQuery.of(context).size.height / 40,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Theme(
+                      data: ThemeData(primaryColor: MelihColors().green),
+                      child: TextFormField(
+                        controller: aciklamaTextKumandasi,
+                        cursorColor: MelihColors().green,
+                        style: TextStyle(color: Colors.white),
+                        validator: (girilenDeger) {
+                          if (girilenDeger.isEmpty) {
+                            return "Açıklama boş bırakılamaz";
+                          } else if (girilenDeger.trim().length < 4) {
+                            return "Çok kısa bir Açıklama girdiniz";
+                          } else if (girilenDeger.trim().length > 150) {
+                            return "Açıklama en fazla 150 karakter olabilir";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            labelStyle: TextStyle(color: MelihColors().white),
+                            labelText: 'Açıklama'),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Theme(
+                      data: ThemeData(primaryColor: MelihColors().green),
+                      child: TextFormField(
+                        controller: bolumTextKumandasi,
+                        cursorColor: MelihColors().green,
+                        style: TextStyle(color: Colors.white),
+                        validator: (girilenDeger) {
+                          if (girilenDeger.isEmpty) {
+                            return "Bölüm alanı boş bırakılamaz";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            labelStyle: TextStyle(color: MelihColors().white),
+                            labelText: 'Bölüm'),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Theme(
+                      data: ThemeData(primaryColor: MelihColors().green),
+                      child: TextFormField(
+                        controller: dersTextKumandasi,
+                        cursorColor: MelihColors().green,
+                        style: TextStyle(color: Colors.white),
+                        validator: (girilenDeger) {
+                          if (girilenDeger.isEmpty) {
+                            return "Ders alanı boş bırakılamaz";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            labelStyle: TextStyle(color: MelihColors().white),
+                            labelText: 'Ders'),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Theme(
+                      data: ThemeData(primaryColor: MelihColors().green),
+                      child: TextFormField(
+                        controller: dersinHocasiTextKumandasi,
+                        cursorColor: MelihColors().green,
+                        style: TextStyle(color: Colors.white),
+                        validator: (girilenDeger) {
+                          if (girilenDeger.isEmpty) {
+                            return "Dersin hocası alanı boş bırakılamaz";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            labelStyle: TextStyle(color: MelihColors().white),
+                            labelText: 'Dersin Hocası'),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Theme(
+                      data: ThemeData(primaryColor: MelihColors().green),
+                      child: TextFormField(
+                        controller: sayfaSayisiTextKumandasi,
+                        cursorColor: MelihColors().green,
+                        style: TextStyle(color: Colors.white),
+                        validator: (girilenDeger) {
+                          if (girilenDeger.isEmpty) {
+                            return "Sayfa sayısı alanı boş bırakılamaz";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            labelStyle: TextStyle(color: MelihColors().white),
+                            labelText: 'Sayfa Sayısı'),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Theme(
+                      data: ThemeData(primaryColor: MelihColors().green),
+                      child: TextFormField(
+                        controller: fiyatTextKumandasi,
+                        cursorColor: MelihColors().green,
+                        style: TextStyle(color: Colors.white),
+                        validator: (girilenDeger) {
+                          if (girilenDeger.isEmpty) {
+                            return "Fiyat alanı boş bırakılamaz";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            labelStyle: TextStyle(color: MelihColors().white),
+                            labelText: 'Fiyat'),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Container(
+                      height: _height * 0.07,
+                      width: _width * 0.35,
+                      child: RaisedButton(
+                        elevation: 5.0,
+                        color: MelihColors().green,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        onPressed: notGonderiOlustur,
+                        child: Text(
+                          "İlanı Oluştur",
+                          style: TextStyle(
+                            color: MelihColors().koyuGri,
+                            letterSpacing: 1.5,
+                            fontSize: MediaQuery.of(context).size.height / 40,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ],
@@ -232,7 +237,8 @@ class _NotIlanEkleState extends State<NotIlanEkle> {
   }
 
   void notGonderiOlustur() async {
-    if (!yukleniyor) {
+    var _formState = _formAnahtari.currentState;
+    if (!yukleniyor && _formState.validate()) {
       setState(() {
         yukleniyor = true;
       });

@@ -227,7 +227,7 @@ class _IlanlarState extends State<Ilanlar> {
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: _height / 45),
+                                          fontSize: _height / 40),
                                     )
                                   ],
                                 ),
@@ -347,7 +347,7 @@ class _IlanlarState extends State<Ilanlar> {
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: _height / 35),
+                                          fontSize: _height / 40),
                                     )
                                   ],
                                 ),

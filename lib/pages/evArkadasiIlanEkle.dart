@@ -20,6 +20,8 @@ class _EvArkadasiIlanEkleState extends State<EvArkadasiIlanEkle> {
   TextEditingController baslikTextKumandasi = TextEditingController();
   TextEditingController odaSayisiTextKumandasi = TextEditingController();
   TextEditingController kiraTextKumandasi = TextEditingController();
+  final _formAnahtari = GlobalKey<FormState>();
+  final _scaffoldAnahtari = GlobalKey<ScaffoldState>();
   File dosya;
   bool yukleniyor = false;
   @override
@@ -27,6 +29,7 @@ class _EvArkadasiIlanEkleState extends State<EvArkadasiIlanEkle> {
     double _height = MediaQuery.of(context).size.height;
     double _width = MediaQuery.of(context).size.height;
     return Scaffold(
+      key: _scaffoldAnahtari,
       resizeToAvoidBottomInset: false,
       resizeToAvoidBottomPadding: false,
       backgroundColor: MelihColors().acikGri,
@@ -55,128 +58,131 @@ class _EvArkadasiIlanEkleState extends State<EvArkadasiIlanEkle> {
                   height: 0,
                 ),
           SingleChildScrollView(
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                AspectRatio(aspectRatio: 16.0 / 9.0, child: fotoYuklendiMi()),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: TextFormField(
-                    controller: baslikTextKumandasi,
-                    cursorColor: MelihColors().main,
-                    style: TextStyle(color: Colors.white),
-                    // validator: (girilenDeger) {
-                    //   if (girilenDeger.isEmpty) {
-                    //     return "Başlık boş bırakılamaz";
-                    //   } else if (girilenDeger.trim().length < 4) {
-                    //     return "Çok kısa bir başlık girdiniz";
-                    //   } else if (girilenDeger.trim().length > 50) {
-                    //     return "Başlık en fazla 50 karakter olabilir";
-                    //   }
-                    //   return null;
-                    // },
-                    decoration: InputDecoration(
-                        labelStyle: TextStyle(color: MelihColors().white),
-                        labelText: 'Başlık'),
+            child: Form(
+              key: _formAnahtari,
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  AspectRatio(aspectRatio: 16.0 / 9.0, child: fotoYuklendiMi()),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: TextFormField(
+                      controller: baslikTextKumandasi,
+                      cursorColor: MelihColors().main,
+                      style: TextStyle(color: Colors.white),
+                      validator: (girilenDeger) {
+                        if (girilenDeger.isEmpty) {
+                          return "Başlık boş bırakılamaz";
+                        } else if (girilenDeger.trim().length < 4) {
+                          return "Çok kısa bir başlık girdiniz";
+                        } else if (girilenDeger.trim().length > 50) {
+                          return "Başlık en fazla 50 karakter olabilir";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          labelStyle: TextStyle(color: MelihColors().white),
+                          labelText: 'Başlık'),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: TextFormField(
-                    controller: aciklamaTextKumandasi,
-                    cursorColor: MelihColors().main,
-                    style: TextStyle(color: Colors.white),
-                    validator: (girilenDeger) {
-                      if (girilenDeger.isEmpty) {
-                        return "Açıklama boş bırakılamaz";
-                      } else if (girilenDeger.trim().length < 4) {
-                        return "Çok kısa bir Açıklama girdiniz";
-                      } else if (girilenDeger.trim().length > 150) {
-                        return "Açıklama en fazla 150 karakter olabilir";
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        labelStyle: TextStyle(color: MelihColors().white),
-                        labelText: 'Açıklama'),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: TextFormField(
+                      controller: aciklamaTextKumandasi,
+                      cursorColor: MelihColors().main,
+                      style: TextStyle(color: Colors.white),
+                      validator: (girilenDeger) {
+                        if (girilenDeger.isEmpty) {
+                          return "Açıklama boş bırakılamaz";
+                        } else if (girilenDeger.trim().length < 4) {
+                          return "Çok kısa bir Açıklama girdiniz";
+                        } else if (girilenDeger.trim().length > 150) {
+                          return "Açıklama en fazla 150 karakter olabilir";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          labelStyle: TextStyle(color: MelihColors().white),
+                          labelText: 'Açıklama'),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: TextFormField(
-                    controller: odaSayisiTextKumandasi,
-                    cursorColor: MelihColors().main,
-                    style: TextStyle(color: Colors.white),
-                    // validator: (girilenDeger) {
-                    //   if (girilenDeger.isEmpty) {
-                    //     return "Bu alan boş bırakılamaz";
-                    //   }
-                    //   return null;
-                    // },
-                    decoration: InputDecoration(
-                        labelStyle: TextStyle(color: MelihColors().white),
-                        labelText: 'Oda Sayısı'),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: TextFormField(
+                      controller: odaSayisiTextKumandasi,
+                      cursorColor: MelihColors().main,
+                      style: TextStyle(color: Colors.white),
+                      validator: (girilenDeger) {
+                        if (girilenDeger.isEmpty) {
+                          return "Bu alan boş bırakılamaz";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          labelStyle: TextStyle(color: MelihColors().white),
+                          labelText: 'Oda Sayısı'),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: TextFormField(
-                    controller: kiraTextKumandasi,
-                    cursorColor: MelihColors().main,
-                    style: TextStyle(color: Colors.white),
-                    // validator: (girilenDeger) {
-                    //   if (girilenDeger.isEmpty) {
-                    //     return "Kira alanı boş bırakılamaz";
-                    //   }
-                    //   return null;
-                    // },
-                    decoration: InputDecoration(
-                        labelStyle: TextStyle(color: MelihColors().white),
-                        labelText: 'Kira'),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: TextFormField(
+                      controller: kiraTextKumandasi,
+                      cursorColor: MelihColors().main,
+                      style: TextStyle(color: Colors.white),
+                      validator: (girilenDeger) {
+                        if (girilenDeger.isEmpty) {
+                          return "Kira alanı boş bırakılamaz";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          labelStyle: TextStyle(color: MelihColors().white),
+                          labelText: 'Kira'),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  child: TextFormField(
-                    controller: konumTextKumandasi,
-                    cursorColor: MelihColors().main,
-                    style: TextStyle(color: Colors.white),
-                    // validator: (girilenDeger) {
-                    //   if (girilenDeger.isEmpty) {
-                    //     return "Konum alanı boş bırakılamaz";
-                    //   }
-                    //   return null;
-                    // },
-                    decoration: InputDecoration(
-                        labelStyle: TextStyle(color: MelihColors().white),
-                        labelText: 'Konum'),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: TextFormField(
+                      controller: konumTextKumandasi,
+                      cursorColor: MelihColors().main,
+                      style: TextStyle(color: Colors.white),
+                      validator: (girilenDeger) {
+                        if (girilenDeger.isEmpty) {
+                          return "Konum alanı boş bırakılamaz";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                          labelStyle: TextStyle(color: MelihColors().white),
+                          labelText: 'Konum'),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Container(
-                    height: _height * 0.07,
-                    width: _width * 0.35,
-                    child: RaisedButton(
-                      elevation: 5.0,
-                      color: MelihColors().main,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      onPressed: evArkadasiGonderiOlustur,
-                      child: Text(
-                        "İlanı Oluştur",
-                        style: TextStyle(
-                          color: MelihColors().koyuGri,
-                          letterSpacing: 1.5,
-                          fontSize: MediaQuery.of(context).size.height / 40,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Container(
+                      height: _height * 0.07,
+                      width: _width * 0.35,
+                      child: RaisedButton(
+                        elevation: 5.0,
+                        color: MelihColors().main,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        onPressed: evArkadasiGonderiOlustur,
+                        child: Text(
+                          "İlanı Oluştur",
+                          style: TextStyle(
+                            color: MelihColors().koyuGri,
+                            letterSpacing: 1.5,
+                            fontSize: MediaQuery.of(context).size.height / 40,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ],
@@ -264,41 +270,47 @@ class _EvArkadasiIlanEkleState extends State<EvArkadasiIlanEkle> {
           )),
         ],
       );
-    } else if (dosya != null) {
+    } else {
       return Image.file(dosya);
     }
   }
 
   void evArkadasiGonderiOlustur() async {
-    if (!yukleniyor) {
-      setState(() {
-        yukleniyor = true;
-      });
+    var _formState = _formAnahtari.currentState;
+    if (dosya == null) {
+      var snackBar = SnackBar(content: Text("Lütfen bir fotoğraf yükleyin."));
+      _scaffoldAnahtari.currentState.showSnackBar(snackBar);
+    } else {
+      if (!yukleniyor && _formState.validate()) {
+        setState(() {
+          yukleniyor = true;
+        });
 
-      String resimUrl = await StorageServisi().gonderiResmiYukle(dosya);
-      String aktifKullaniciId =
-          Provider.of<YetkilendirmeServisi>(context, listen: false)
-              .aktifKullaniciId;
+        String resimUrl = await StorageServisi().gonderiResmiYukle(dosya);
+        String aktifKullaniciId =
+            Provider.of<YetkilendirmeServisi>(context, listen: false)
+                .aktifKullaniciId;
 
-      await FirestoreServisi().evArkadasiGonderiOlustur(
-          yayinlayanId: aktifKullaniciId,
-          gonderiResmiUrl: resimUrl,
-          baslik: baslikTextKumandasi.text,
-          aciklama: aciklamaTextKumandasi.text,
-          konum: konumTextKumandasi.text,
-          odaSayisi: odaSayisiTextKumandasi.text,
-          kira: kiraTextKumandasi.text);
+        await FirestoreServisi().evArkadasiGonderiOlustur(
+            yayinlayanId: aktifKullaniciId,
+            gonderiResmiUrl: resimUrl,
+            baslik: baslikTextKumandasi.text,
+            aciklama: aciklamaTextKumandasi.text,
+            konum: konumTextKumandasi.text,
+            odaSayisi: odaSayisiTextKumandasi.text,
+            kira: kiraTextKumandasi.text);
 
-      setState(() {
-        yukleniyor = false;
-        baslikTextKumandasi.clear();
-        kiraTextKumandasi.clear();
-        odaSayisiTextKumandasi.clear();
-        aciklamaTextKumandasi.clear();
-        konumTextKumandasi.clear();
-        dosya = null;
-      });
-      Navigator.pop(context);
+        setState(() {
+          yukleniyor = false;
+          baslikTextKumandasi.clear();
+          kiraTextKumandasi.clear();
+          odaSayisiTextKumandasi.clear();
+          aciklamaTextKumandasi.clear();
+          konumTextKumandasi.clear();
+          dosya = null;
+        });
+        Navigator.pop(context);
+      }
     }
   }
 }

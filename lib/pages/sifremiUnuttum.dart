@@ -1,12 +1,7 @@
-import 'package:flutter/gestures.dart';
+
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:uludag_social/models/colorsAndTypes.dart';
-import 'package:uludag_social/models/kullanici.dart';
-import 'package:uludag_social/pages/hesapOlustur.dart';
-import 'package:uludag_social/pages/sifremiUnuttum.dart';
-import 'package:uludag_social/services/firestoreServisi.dart';
 import 'package:uludag_social/services/yetkilendirmeServisi.dart';
 
 class SifremiUnuttum extends StatefulWidget {
@@ -385,7 +380,7 @@ class _SifremiUnuttumState extends State<SifremiUnuttum> {
       backgroundColor: MelihColors().acikGri,
       title: Text(
         "İşlem tamam",
-        style: TextStyle(color: Colors.white, fontSize: 20),
+        style: TextStyle(color: Colors.white, fontSize: 25,fontWeight: FontWeight.bold),
       ),
       content: Text(
         "E-mailine parola sıfırlama linki gönderildi.",
