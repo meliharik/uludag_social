@@ -386,22 +386,19 @@ class _YolculukGonderiKartiState extends State<YolculukGonderiKarti> {
                     children: [
                       Column(
                         children: [
-                          Container(
-                            padding: EdgeInsets.all(0),
-                            child: IconButton(
-                              onPressed: _begeniDegistir,
-                              icon: !_begendin
-                                  ? Icon(
-                                      Icons.favorite_border,
-                                      color: Colors.white,
-                                      size: _height / 35,
-                                    )
-                                  : Icon(
-                                      Icons.favorite,
-                                      color: Colors.red,
-                                      size: _height / 35,
-                                    ),
-                            ),
+                          IconButton(
+                            onPressed: _begeniDegistir,
+                            icon: !_begendin
+                                ? Icon(
+                                    Icons.favorite_border,
+                                    color: Colors.white,
+                                    size: _height / 35,
+                                  )
+                                : Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                    size: _height / 35,
+                                  ),
                           ),
                           RichText(
                             text: TextSpan(children: [
@@ -907,7 +904,7 @@ class _NotGonderiKartiState extends State<NotGonderiKarti> {
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: _height / 45),
+                                      fontSize: _height / 55),
                                   text: _begeniSayisi.toString()),
                               // TextSpan(
                               //     style: TextStyle(

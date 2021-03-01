@@ -558,4 +558,15 @@ class FirestoreServisi {
 
     return false;
   }
+
+  Future<List<Kullanici>> kullaniciAra(String kelime) async {
+    QuerySnapshot snapshot = await _firestore
+        .collection("kullanicilar")
+        .where("kullaniciAdi", isGreaterThanOrEqualTo: kelime)
+        .get();
+
+    List<Kullanici> kullanicilar =
+        snapshot.docs.map((doc) => Kullanici.dokumandanUret(doc)).toList();
+    return kullanicilar;
+  }
 }

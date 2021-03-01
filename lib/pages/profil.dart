@@ -372,10 +372,14 @@ class _ProfilState extends State<Profil> {
           shrinkWrap: false,
           itemCount: _evArkadasiGonderiler.length,
           itemBuilder: (context, index) {
-            return EvArkadasiGonderiKarti(
-              gonderi: _evArkadasiGonderiler[index],
-              yayinlayan: profilData,
-            );
+            return index != 0
+                ? EvArkadasiGonderiKarti(
+                    gonderi: _evArkadasiGonderiler[index],
+                    yayinlayan: profilData,
+                  )
+                : SizedBox(
+                    height: 0,
+                  );
           }),
     );
   }
@@ -387,10 +391,14 @@ class _ProfilState extends State<Profil> {
           shrinkWrap: false,
           itemCount: _yolculukGonderiler.length,
           itemBuilder: (context, index) {
-            return YolculukGonderiKarti(
-              gonderi: _yolculukGonderiler[index],
-              yayinlayan: profilData,
-            );
+            return index != 0
+                ? YolculukGonderiKarti(
+                    gonderi: _yolculukGonderiler[index],
+                    yayinlayan: profilData,
+                  )
+                : SizedBox(
+                    height: 0,
+                  );
           }),
     );
   }
@@ -402,10 +410,14 @@ class _ProfilState extends State<Profil> {
           shrinkWrap: false,
           itemCount: _esyaGonderiler.length,
           itemBuilder: (context, index) {
-            return EsyaGonderiKarti(
-              gonderi: _esyaGonderiler[index],
-              yayinlayan: profilData,
-            );
+            return index != 0
+                ? EsyaGonderiKarti(
+                    gonderi: _esyaGonderiler[index],
+                    yayinlayan: profilData,
+                  )
+                : SizedBox(
+                    height: 0,
+                  );
           }),
     );
   }
@@ -417,10 +429,14 @@ class _ProfilState extends State<Profil> {
           shrinkWrap: false,
           itemCount: _notGonderiler.length,
           itemBuilder: (context, index) {
-            return NotGonderiKarti(
-              gonderi: _notGonderiler[index],
-              yayinlayan: profilData,
-            );
+            return index != 0
+                ? NotGonderiKarti(
+                    gonderi: _notGonderiler[index],
+                    yayinlayan: profilData,
+                  )
+                : SizedBox(
+                    height: 0,
+                  );
           }),
     );
   }

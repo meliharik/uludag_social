@@ -250,17 +250,9 @@ class _ProfiliDuzenleState extends State<ProfiliDuzenle> {
           enabled: false,
           initialValue: widget.profil.email,
           style: TextStyle(color: MelihColors().main),
-          validator: (girilenDeger) {
-            return girilenDeger.trim().length <= 3
-                ? "Kullanıcı Adı en az 4 karakter olmalı"
-                : null;
-          },
-          onSaved: (girilenDeger) {
-            _kullaniciAdi = girilenDeger;
-          },
           decoration: InputDecoration(
               labelStyle: TextStyle(color: MelihColors().white),
-              labelText: 'Kullanıcı Adı'),
+              labelText: 'Email'),
         ),
       ),
     );

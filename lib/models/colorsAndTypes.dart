@@ -9,4 +9,5 @@ class MelihColors {
   Color amber = Color(0xfffaa61a);
   Color white = Color(0xffb9bbbe);
   Color red = Color(0xffe61b58);
+  Color purple = Color(0xff553e790);
 }
